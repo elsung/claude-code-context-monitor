@@ -291,7 +291,7 @@ def main():
             model_display = f"\033[94m[{model_name}]\033[0m"
 
         # Combine all components
-        status_line = f"{model_display} \033[93m📁 {directory}\033[0m 🧠 {context_display}{session_metrics}{output_style}"
+        status_line = f"{model_display} \033[93m📁 {directory}\033[0m 🧠 {context_display}{output_style}{session_metrics}"
 
         print(status_line)
 
