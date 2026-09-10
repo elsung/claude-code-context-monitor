@@ -239,6 +239,18 @@ def get_session_metrics(cost_data):
 
     return f" \033[90m|\033[0m {' '.join(metrics)}" if metrics else ""
 
+def get_output_style_display(data):
+    """Show the active output style as a badge — but only when it is NOT the
+    default, so a normal session stays uncluttered. Claude Code passes the active
+    style in the status-line JSON at ``output_style.name`` (a custom style is set
+    per-session, e.g. via ``claude --settings '{"outputStyle":"..."}'`` or the
+    ``/config`` menu), so this makes it obvious at a glance which one is live."""
+    name = (data.get('output_style') or {}).get('name')
+    if not name or name.lower() == 'default':
+        return ""
+    return f" \033[95m🎨 {name}\033[0m"
+
+
 def main():
     try:
         # Read JSON input from Claude Code
@@ -262,6 +274,7 @@ def main():
         context_display = get_context_display(context_info)
         directory = get_directory_display(workspace)
         session_metrics = get_session_metrics(cost_data)
+        output_style = get_output_style_display(data)
 
         # Model display with context-aware coloring
         if context_info:
@@ -278,7 +291,7 @@ def main():
             model_display = f"\033[94m[{model_name}]\033[0m"
 
         # Combine all components
-        status_line = f"{model_display} \033[93m📁 {directory}\033[0m 🧠 {context_display}{session_metrics}"
+        status_line = f"{model_display} \033[93m📁 {directory}\033[0m 🧠 {context_display}{output_style}{session_metrics}"
 
         print(status_line)
 
