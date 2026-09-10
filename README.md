@@ -11,6 +11,11 @@ A status line script for [Claude Code](https://claude.ai/code) that shows real-t
 - Context usage as a color-coded progress bar with percentage **and absolute tokens used out of the model's real context window** (e.g. `412K/1M`)
 - Model-aware window sizing — reads the selected model's actual context window from Claude Code (1M models show `/1M`, 200K models show `/200K`); nothing is hard-coded to 200k
 - Session cost, duration, and net lines changed
+- **Active output style** — a `🎨 <name>` badge when a non-default [output style](output-styles/) is in effect (hidden on the default, so normal sessions stay clean)
+
+## Output styles
+
+This repo also ships a set of ready-to-use [output styles](output-styles/) (Plain & Clear, ELI5, Busy CEO, Aircraft-Manual STE100, and more) that change how Claude *talks to you*. See [output-styles/README.md](output-styles/) for what each does, how to install them, and an important safety note: **output styles also affect headless `claude -p`**, so scope them to interactive sessions if you use Claude Code as a generation engine.
 
 ## Quick install
 
